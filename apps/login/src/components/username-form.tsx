@@ -27,7 +27,6 @@ type Props = {
   defaultOrganization?: string;
   suffix?: string;
   submit: boolean;
-  allowRegister: boolean;
 };
 
 export function UsernameForm({
@@ -38,7 +37,6 @@ export function UsernameForm({
   suffix,
   loginSettings,
   submit,
-  allowRegister,
 }: Props) {
   const { register, handleSubmit, formState } = useForm<Inputs>({
     mode: "onChange",
@@ -113,27 +111,6 @@ export function UsernameForm({
             data-testid="username-text-input"
             suffix={suffix}
           />
-          {allowRegister && (
-            <button
-              className="hover:text-primary-light-500 dark:hover:text-primary-dark-500 text-sm transition-all"
-              onClick={() => {
-                const registerParams = new URLSearchParams();
-                if (organization) {
-                  registerParams.append("organization", organization);
-                }
-                if (requestId) {
-                  registerParams.append("requestId", requestId);
-                }
-
-                router.push("/register?" + registerParams);
-              }}
-              type="button"
-              disabled={loading}
-              data-testid="register-button"
-            >
-              <Translated i18nKey="register" namespace="loginname" />
-            </button>
-          )}
         </div>
 
         {error && (

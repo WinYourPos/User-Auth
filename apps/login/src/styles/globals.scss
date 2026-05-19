@@ -48,3 +48,13 @@ html {
     background-position: -200% 0;
   }
 }
+
+/* Fallback logo sizing when using /logo/company-logo.svg */
+.company-logo-img {
+  max-height: 72px;
+  width: auto;
+}
+
+.company-logo-frame {
+  border: 1px solid color-mix(in srgb, var(--theme-light-primary-500) 20%, transparent);
+}

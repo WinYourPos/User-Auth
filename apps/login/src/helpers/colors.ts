@@ -30,17 +30,18 @@ export type ColorMap = {
   [_key in MapName]: Color[];
 };
 
-export const DARK_PRIMARY = "#eeeeee";
-export const PRIMARY = "#5469d4";
+// Brand palette from the provided Coolors link
+export const DARK_PRIMARY = "#d2bf8d";
+export const PRIMARY = "#b19e70";
 
 export const DARK_WARN = "#ff3b5b";
 export const WARN = "#cd3d56";
 
-export const DARK_BACKGROUND = "#252526";
-export const BACKGROUND = "#fafafa";
+export const DARK_BACKGROUND = "#233356";
+export const BACKGROUND = "#253354";
 
 export const DARK_TEXT = "#ffffff";
-export const TEXT = "#000000";
+export const TEXT = "#ffffff";
 
 export type LabelPolicyColors = {
   backgroundColor: string;

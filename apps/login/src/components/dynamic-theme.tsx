@@ -91,8 +91,6 @@ export function DynamicTheme({
         : // Traditional top-to-bottom layout - center title/description, left-align forms
           (() => {
             const childArray = Children.toArray(actualChildren);
-            const titleContent = childArray[0] || null;
-            const formContent = childArray[1] || null;
             const hasMultipleChildren = childArray.length > 1;
 
             return (
@@ -111,13 +109,13 @@ export function DynamicTheme({
                     </div>
 
                     {hasMultipleChildren ? (
-                      <>
-                        {/* Title and description - center aligned */}
-                        <div className="mb-4 flex w-full flex-col items-center text-center">{titleContent}</div>
-
-                        {/* Form content - left aligned */}
-                        <div className="w-full">{formContent}</div>
-                      </>
+                      <div className="w-full space-y-6">
+                        {childArray.map((child, index) => (
+                          <div key={index} className={index === 0 ? "flex w-full justify-center" : "w-full"}>
+                            {child}
+                          </div>
+                        ))}
+                      </div>
                     ) : (
                       // Single child - use original behavior
                       <div className="w-full">{actualChildren}</div>

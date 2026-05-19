@@ -6,6 +6,8 @@ RUN addgroup --system --gid 1001 nodejs && \
 RUN mkdir -p /.env-file && touch /.env-file/.env && chown -R nextjs:nodejs /.env-file
 
 COPY --chown=nextjs:nodejs .next/standalone ./
+COPY --chown=nextjs:nodejs public ./public
+COPY --chown=nextjs:nodejs scripts ./scripts
 
 USER nextjs
 ENV HOSTNAME="::" \
