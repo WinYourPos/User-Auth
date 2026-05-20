@@ -2,6 +2,106 @@
 @import "tailwindcss";
 @config "../../tailwind.config.mjs";
 
+/* ============================================================
+   WinYourPos Login — design tokens (light default, .dark overrides)
+   ============================================================ */
+:root {
+  /* Canvas — light mode */
+  --wyp-bg: #f5f7fb;
+  --wyp-bg-elevated: #ffffff;
+  --wyp-grid-color: rgba(37, 99, 235, 0.08);
+
+  /* Hairlines / surfaces — light mode (darker / more visible) */
+  --wyp-hairline: rgba(15, 23, 42, 0.16);
+  --wyp-hairline-hi: rgba(15, 23, 42, 0.30);
+  --wyp-hairline-blue: rgba(37, 99, 235, 0.32);
+  --wyp-hairline-blue-hi: rgba(37, 99, 235, 0.60);
+  --wyp-surface: rgba(37, 99, 235, 0.04);
+  --wyp-surface-hi: rgba(37, 99, 235, 0.08);
+  --wyp-surface-blue: rgba(37, 99, 235, 0.07);
+
+  /* Brand blue */
+  --wyp-blue-300: #93c5fd;
+  --wyp-blue-400: #60a5fa;
+  --wyp-blue-500: #3b82f6;
+  --wyp-blue-600: #2563eb;
+  --wyp-blue-700: #1d4ed8;
+  --wyp-blue-accent: #2563eb;          /* primary blue accent for light mode UI */
+  --wyp-blue-glow: rgba(59, 130, 246, 0.28);
+  --wyp-blue-glow-soft: rgba(59, 130, 246, 0.14);
+
+  /* Text — light mode (high contrast) */
+  --wyp-text: #0b1220;
+  --wyp-text-muted: rgba(11, 18, 32, 0.72);
+  --wyp-text-dim: rgba(11, 18, 32, 0.50);
+
+  /* Semantic */
+  --wyp-error: #dc2626;
+  --wyp-success: #16a34a;
+
+  /* Radii */
+  --wyp-r-sm: 8px;
+  --wyp-r-md: 10px;
+  --wyp-r-lg: 14px;
+  --wyp-r-pill: 999px;
+
+  /* Shadows */
+  --wyp-shadow-blue:
+    0 4px 12px rgba(59, 130, 246, 0.18),
+    0 1px 0 rgba(255, 255, 255, 0.20) inset,
+    0 0 0 0.5px rgba(255, 255, 255, 0.10) inset;
+  --wyp-shadow-blue-hi:
+    0 8px 24px rgba(59, 130, 246, 0.28),
+    0 1px 0 rgba(255, 255, 255, 0.24) inset,
+    0 0 0 0.5px rgba(255, 255, 255, 0.14) inset;
+  --wyp-shadow-logo:
+    0 4px 14px rgba(15, 23, 42, 0.10),
+    0 2px 4px rgba(15, 23, 42, 0.06);
+  --wyp-shadow-pill:
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 0 0 0.5px rgba(15, 23, 42, 0.04) inset;
+
+  /* Motion */
+  --wyp-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --wyp-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --wyp-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark {
+  --wyp-bg: #000000;
+  --wyp-bg-elevated: #0a0a0b;
+  --wyp-grid-color: rgba(255, 255, 255, 0.025);
+
+  --wyp-hairline: rgba(255, 255, 255, 0.14);
+  --wyp-hairline-hi: rgba(255, 255, 255, 0.30);
+  --wyp-hairline-blue: rgba(96, 165, 250, 0.32);
+  --wyp-hairline-blue-hi: rgba(96, 165, 250, 0.56);
+  --wyp-surface: rgba(255, 255, 255, 0.025);
+  --wyp-surface-hi: rgba(255, 255, 255, 0.05);
+  --wyp-surface-blue: rgba(59, 130, 246, 0.06);
+
+  --wyp-blue-accent: #60a5fa;
+  --wyp-blue-glow: rgba(59, 130, 246, 0.45);
+  --wyp-blue-glow-soft: rgba(59, 130, 246, 0.18);
+
+  --wyp-text: #ffffff;
+  --wyp-text-muted: rgba(255, 255, 255, 0.66);
+  --wyp-text-dim: rgba(255, 255, 255, 0.40);
+
+  --wyp-error: #ff6b6b;
+  --wyp-success: #4ade80;
+
+  --wyp-shadow-logo:
+    0 12px 32px rgba(59, 130, 246, 0.35),
+    0 4px 8px rgba(0, 0, 0, 0.30);
+  --wyp-shadow-pill:
+    0 1px 2px rgba(0, 0, 0, 0.40),
+    0 0 0 0.5px rgba(255, 255, 255, 0.06) inset;
+}
+
+/* ============================================================
+   Existing utilities preserved
+   ============================================================ */
 @layer base {
   h1,
   .ztdl-h1 {
@@ -16,6 +116,8 @@
 html {
   --background-color: #ffffff;
   --dark-background-color: #000000;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 .form-checkbox:checked {
@@ -25,36 +127,712 @@ html {
 .skeleton {
   --accents-2: var(--theme-light-background-400);
   --accents-1: var(--theme-light-background-500);
-
   background-image: linear-gradient(270deg, var(--accents-1), var(--accents-2), var(--accents-2), var(--accents-1));
   background-size: 400% 100%;
   animation: skeleton_loading 8s ease-in-out infinite;
 }
-
 .dark .skeleton {
   --accents-2: var(--theme-dark-background-400);
   --accents-1: var(--theme-dark-background-500);
-
   background-image: linear-gradient(270deg, var(--accents-1), var(--accents-2), var(--accents-2), var(--accents-1));
   background-size: 400% 100%;
   animation: skeleton_loading 8s ease-in-out infinite;
 }
-
 @keyframes skeleton_loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================================
+   WinYourPos body, atmosphere, typography
+   ============================================================ */
+body.wyp {
+  background: var(--wyp-bg);
+  color: var(--wyp-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+}
+body.wyp [class*="min-h-screen"] {
+  min-height: 0 !important;
+  height: 100dvh !important;
+}
+
+.wyp-grid {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--wyp-grid-color) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+          mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wyp-spotlight {
+  position: fixed;
+  top: -300px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 700px;
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, var(--wyp-blue-glow-soft) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wyp-spotlight-secondary {
+  position: fixed;
+  bottom: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle at center, var(--wyp-blue-glow-soft) 0%, transparent 65%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.wyp > * { position: relative; z-index: 1; }
+
+/* ============================================================
+   Blue spotlight beams — dramatic projector hits at 3 anchors
+   Same positions in light + dark; alpha tuned per mode
+   ============================================================ */
+:root { --wyp-beam-1: 0.55; --wyp-beam-2: 0.45; --wyp-beam-3: 0.40; }
+.dark { --wyp-beam-1: 0.65; --wyp-beam-2: 0.55; --wyp-beam-3: 0.50; }
+
+.wyp-beam {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(40px);
+}
+
+/* Beam 1 — large hit, top-left, angled inward */
+.wyp-beam-1 {
+  top: -180px;
+  left: -120px;
+  width: 720px;
+  height: 720px;
+  transform: rotate(18deg);
+  background: radial-gradient(ellipse 40% 60% at 50% 40%,
+    rgba(59, 130, 246, var(--wyp-beam-1)) 0%,
+    rgba(59, 130, 246, calc(var(--wyp-beam-1) * 0.55)) 20%,
+    rgba(59, 130, 246, calc(var(--wyp-beam-1) * 0.18)) 45%,
+    transparent 72%);
+}
+
+/* Beam 2 — medium hit, top-right */
+.wyp-beam-2 {
+  top: -120px;
+  right: -100px;
+  width: 560px;
+  height: 560px;
+  transform: rotate(-22deg);
+  background: radial-gradient(ellipse 38% 58% at 50% 40%,
+    rgba(96, 165, 250, var(--wyp-beam-2)) 0%,
+    rgba(96, 165, 250, calc(var(--wyp-beam-2) * 0.55)) 22%,
+    rgba(96, 165, 250, calc(var(--wyp-beam-2) * 0.16)) 48%,
+    transparent 74%);
+}
+
+/* Beam 3 — bottom-right wash */
+.wyp-beam-3 {
+  bottom: -200px;
+  right: -50px;
+  width: 640px;
+  height: 640px;
+  background: radial-gradient(ellipse 50% 55% at 50% 50%,
+    rgba(37, 99, 235, var(--wyp-beam-3)) 0%,
+    rgba(37, 99, 235, calc(var(--wyp-beam-3) * 0.50)) 25%,
+    rgba(37, 99, 235, calc(var(--wyp-beam-3) * 0.15)) 50%,
+    transparent 75%);
+}
+
+
+/* ============================================================
+   Brand block (logo + title + accent line + tagline)
+   ============================================================ */
+.wyp-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  animation: wyp-fade-up 700ms var(--wyp-ease-out) 250ms forwards;
+  margin-bottom: 6px;
+}
+.wyp-brand-logo {
+  width: 88px;
+  height: 88px;
+  filter: drop-shadow(0 4px 14px rgba(15,23,42,0.10)) drop-shadow(0 2px 4px rgba(15,23,42,0.06));
+  transition: filter 200ms var(--wyp-ease-out);
+  opacity: 0;
+  transform: scale(0.85);
+  animation: wyp-logo-in 900ms var(--wyp-ease-spring) 100ms forwards;
+}
+.dark .wyp-brand-logo {
+  filter: drop-shadow(0 12px 32px rgba(59,130,246,0.35)) drop-shadow(0 4px 8px rgba(0,0,0,0.30));
+}
+.wyp-brand-title {
+  font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  margin: 10px 0 0;
+  background: linear-gradient(180deg, var(--wyp-text) 0%, color-mix(in oklab, var(--wyp-text) 78%, transparent) 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+.wyp-accent-line {
+  width: 56px;
+  height: 1px;
+  margin: 8px auto 6px;
+  background: linear-gradient(90deg, transparent 0%, var(--wyp-blue-500) 50%, transparent 100%);
+  box-shadow: 0 0 12px var(--wyp-blue-glow);
+  opacity: 0;
+  animation: wyp-fade 700ms var(--wyp-ease-out) 320ms forwards;
+}
+.wyp-tagline {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--wyp-text-muted);
+  margin: 0;
+  opacity: 0;
+  animation: wyp-fade-up 700ms var(--wyp-ease-out) 320ms forwards;
+}
+
+/* ============================================================
+   Minimal card chrome — subtle blue-hairline glass with a blue
+   brush running across the top edge. Visible, never heavy.
+   ============================================================ */
+body.wyp [class*="bg-background-light-400"],
+body.wyp [class*="bg-background-light-500"],
+body.wyp [class*="bg-background-dark-400"],
+body.wyp [class*="bg-background-dark-500"] {
+  position: relative;
+  background-color: var(--wyp-bg-elevated) !important;
+  border: 1px solid var(--wyp-hairline-blue) !important;
+  border-radius: var(--wyp-r-lg) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 8px 24px -8px rgba(15, 23, 42, 0.08),
+    0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  overflow: hidden;
+  padding: 18px !important;
+}
+.dark body.wyp [class*="bg-background-light-400"],
+.dark body.wyp [class*="bg-background-light-500"],
+.dark body.wyp [class*="bg-background-dark-400"],
+.dark body.wyp [class*="bg-background-dark-500"] {
+  background-color: rgba(255, 255, 255, 0.025) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.10) inset,
+    0 16px 48px -16px rgba(0, 0, 0, 0.50),
+    0 0 0 0.5px var(--wyp-hairline-blue) inset !important;
+}
+/* Blue brush stroke across the top edge of the card */
+body.wyp [class*="bg-background-light-400"]::before,
+body.wyp [class*="bg-background-light-500"]::before,
+body.wyp [class*="bg-background-dark-400"]::before,
+body.wyp [class*="bg-background-dark-500"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--wyp-blue-accent) 50%, transparent 100%);
+  box-shadow: 0 0 10px var(--wyp-blue-glow);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Outer body wrappers — keep canvas-transparent (no nested cards) */
+body.wyp [class*="bg-background-light-800"],
+body.wyp [class*="bg-background-dark-800"] {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+body.wyp .skeleton { /* restore skeleton */
+  background-image: linear-gradient(270deg, var(--wyp-surface), var(--wyp-surface-hi), var(--wyp-surface-hi), var(--wyp-surface)) !important;
+}
+
+/* ============================================================
+   Inputs — visible iOS-style box with blue-tinted border
+   ============================================================ */
+body.wyp form label { position: relative; }
+
+body.wyp form input[type="text"],
+body.wyp form input[type="email"],
+body.wyp form input[type="password"],
+body.wyp form input[type="tel"],
+body.wyp form input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]) {
+  background: var(--wyp-bg-elevated) !important;
+  border: 1px solid var(--wyp-hairline-blue) !important;
+  border-radius: var(--wyp-r-md) !important;
+  height: 48px !important;
+  padding: 0 14px !important;
+  width: 100% !important;
+  font: 500 16px/1 "Inter Tight", system-ui, sans-serif !important;
+  letter-spacing: -0.01em !important;
+  color: var(--wyp-text) !important;
+  outline: none !important;
+  transition: border-color 180ms var(--wyp-ease-standard),
+              box-shadow 200ms var(--wyp-ease-standard),
+              background-color 180ms var(--wyp-ease-standard) !important;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 0 0 0.5px var(--wyp-hairline-blue) inset !important;
+}
+.dark body.wyp form input[type="text"],
+.dark body.wyp form input[type="email"],
+.dark body.wyp form input[type="password"],
+.dark body.wyp form input[type="tel"],
+.dark body.wyp form input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]) {
+  background: rgba(255, 255, 255, 0.04) !important;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.30),
+    0 0 0 0.5px var(--wyp-hairline-blue) inset !important;
+}
+body.wyp form input::placeholder { color: var(--wyp-text-dim); font-style: normal !important; }
+body.wyp form input:hover {
+  border-color: var(--wyp-hairline-blue-hi) !important;
+  background: var(--wyp-surface-blue) !important;
+}
+body.wyp form input:focus {
+  border-color: var(--wyp-blue-accent) !important;
+  background: var(--wyp-bg-elevated) !important;
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--wyp-blue-accent) 18%, transparent),
+    0 8px 24px -8px var(--wyp-blue-glow),
+    0 0 0 0.5px var(--wyp-blue-accent) inset !important;
+}
+.dark body.wyp form input:focus {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Label text above input */
+body.wyp form label > span:first-child {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: var(--wyp-text-muted) !important;
+  margin-bottom: 2px !important;
+}
+
+/* ============================================================
+   Buttons — primary (solid blue with gloss) + secondary (ghost)
+   ============================================================ */
+body.wyp button[type="submit"],
+body.wyp button[data-testid="submit-button"],
+body.wyp button.wyp-btn-primary {
+  position: relative;
+  background: var(--wyp-blue-500) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: var(--wyp-r-md) !important;
+  height: 48px !important;
+  min-width: 120px;
+  padding: 0 24px !important;
+  font: 600 15px/1 "Inter Tight", system-ui, sans-serif !important;
+  letter-spacing: -0.01em !important;
+  box-shadow: var(--wyp-shadow-blue) !important;
+  transition: transform 180ms var(--wyp-ease-out), background-color 180ms var(--wyp-ease-out), box-shadow 180ms var(--wyp-ease-out) !important;
+  overflow: hidden;
+  cursor: pointer;
+}
+body.wyp button[type="submit"]::after,
+body.wyp button[data-testid="submit-button"]::after,
+body.wyp button.wyp-btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.14) 0%, transparent 50%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+body.wyp button[type="submit"]:hover:not(:disabled),
+body.wyp button[data-testid="submit-button"]:hover:not(:disabled),
+body.wyp button.wyp-btn-primary:hover:not(:disabled) {
+  background: var(--wyp-blue-400) !important;
+  transform: translateY(-1px);
+  box-shadow: var(--wyp-shadow-blue-hi) !important;
+}
+body.wyp button[type="submit"]:active:not(:disabled),
+body.wyp button[data-testid="submit-button"]:active:not(:disabled),
+body.wyp button.wyp-btn-primary:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
+}
+body.wyp button[type="submit"]:disabled,
+body.wyp button[data-testid="submit-button"]:disabled,
+body.wyp button.wyp-btn-primary:disabled {
+  background: var(--wyp-surface) !important;
+  color: var(--wyp-text-dim) !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
+/* Secondary (back / ghost) */
+body.wyp form button[type="button"]:not([data-testid="submit-button"]):not(.wyp-btn-primary) {
+  background: transparent !important;
+  color: var(--wyp-text) !important;
+  border: 1px solid var(--wyp-hairline-blue) !important;
+  border-radius: var(--wyp-r-md) !important;
+  height: 48px !important;
+  padding: 0 20px !important;
+  font: 600 15px/1 "Inter Tight", system-ui, sans-serif !important;
+  letter-spacing: -0.01em !important;
+  box-shadow: 0 0 0 0.5px var(--wyp-hairline-blue) inset;
+  transition: border-color 180ms var(--wyp-ease-out), background-color 180ms var(--wyp-ease-out);
+}
+body.wyp form button[type="button"]:not([data-testid="submit-button"]):not(.wyp-btn-primary):hover {
+  border-color: var(--wyp-hairline-blue-hi) !important;
+  background: var(--wyp-surface-blue) !important;
+  box-shadow: 0 0 0 0.5px var(--wyp-hairline-blue-hi) inset !important;
+}
+
+/* ============================================================
+   Footer pills (language + theme toggle)
+   ============================================================ */
+
+/* Language switcher: trigger as pill */
+body.wyp [aria-haspopup="listbox"] {
+  background: var(--wyp-surface) !important;
+  color: var(--wyp-text) !important;
+  border: 1px solid var(--wyp-hairline-blue) !important;
+  border-radius: var(--wyp-r-pill) !important;
+  height: 36px !important;
+  padding: 0 30px 0 14px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--wyp-shadow-pill) !important;
+  transition: border-color 180ms var(--wyp-ease-out), background-color 180ms var(--wyp-ease-out);
+}
+body.wyp [aria-haspopup="listbox"]:hover {
+  border-color: var(--wyp-hairline-blue-hi) !important;
+  background: var(--wyp-surface-blue) !important;
+}
+
+/* Language switcher: dropdown panel — opaque elevated surface */
+body.wyp [class*="--button-width"],
+body.wyp [role="listbox"] {
+  background: var(--wyp-bg-elevated) !important;
+  color: var(--wyp-text) !important;
+  border: 1px solid var(--wyp-hairline) !important;
+  border-radius: var(--wyp-r-md) !important;
+  box-shadow:
+    0 16px 40px -12px rgba(0, 0, 0, 0.40),
+    0 0 0 0.5px var(--wyp-hairline) inset !important;
+  padding: 4px !important;
+  overflow: hidden;
+}
+.dark body.wyp [class*="--button-width"],
+.dark body.wyp [role="listbox"] {
+  background: var(--wyp-bg-elevated) !important;
+}
+
+/* Dropdown options */
+body.wyp [class*="--button-width"] [role="option"],
+body.wyp [role="listbox"] [role="option"] {
+  color: var(--wyp-text) !important;
+  border-radius: var(--wyp-r-sm) !important;
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+  cursor: pointer;
+}
+body.wyp [class*="--button-width"] [role="option"][data-focus],
+body.wyp [role="listbox"] [role="option"][data-focus],
+body.wyp [class*="--button-width"] [role="option"]:hover,
+body.wyp [role="listbox"] [role="option"]:hover {
+  background: var(--wyp-surface-blue) !important;
+  color: var(--wyp-blue-400) !important;
+}
+body.wyp [class*="--button-width"] [role="option"] div,
+body.wyp [role="listbox"] [role="option"] div {
+  color: inherit !important;
+}
+
+/* Theme switch — pill row */
+body.wyp [class*="bg-black/5"],
+body.wyp [class*="bg-white/5"] {
+  background: var(--wyp-surface) !important;
+  border: 1px solid var(--wyp-hairline-blue) !important;
+  border-radius: var(--wyp-r-pill) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--wyp-shadow-pill) !important;
+  padding: 3px !important;
+}
+
+/* Theme switch — individual segment buttons */
+body.wyp [class*="bg-black/5"] > button,
+body.wyp [class*="bg-white/5"] > button {
+  background: transparent !important;
+  border: none !important;
+  border-radius: var(--wyp-r-pill) !important;
+  height: 30px !important;
+  width: 36px;
+  color: var(--wyp-text-muted) !important;
+  box-shadow: none !important;
+  transition: background-color 180ms var(--wyp-ease-out), color 180ms var(--wyp-ease-out);
+}
+body.wyp [class*="bg-black/5"] > button:hover,
+body.wyp [class*="bg-white/5"] > button:hover {
+  color: var(--wyp-text) !important;
+  background: var(--wyp-surface-hi) !important;
+}
+/* Active theme button */
+body.wyp [class*="bg-black/5"] > button[class*="bg-white"],
+body.wyp [class*="bg-black/5"] > button[class*="bg-gray"],
+body.wyp [class*="bg-white/5"] > button[class*="bg-white"],
+body.wyp [class*="bg-white/5"] > button[class*="bg-gray"] {
+  background: var(--wyp-surface-blue) !important;
+  color: var(--wyp-blue-400) !important;
+  box-shadow: 0 0 0 1px var(--wyp-hairline-blue-hi) inset !important;
+}
+
+/* ============================================================
+   Form spacing/animations
+   ============================================================ */
+body.wyp form { opacity: 0; animation: wyp-fade-up 700ms var(--wyp-ease-out) 400ms forwards; }
+
+@keyframes wyp-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes wyp-fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes wyp-logo-in {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Honor reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  body.wyp *, body.wyp *::before, body.wyp *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-/* Fallback logo sizing when using /logo/company-logo.svg */
-.company-logo-img {
-  max-height: 72px;
-  width: auto;
+/* ============================================================
+   Headings & text inside .wyp — blue-accented, readable on both modes
+   ============================================================ */
+body.wyp h1:not(.wyp-brand-title) {
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 26px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.03em !important;
+  color: var(--wyp-text) !important;
+  line-height: 1.15 !important;
+  text-align: center;
+  margin: 0;
+  position: relative;
+}
+body.wyp h1:not(.wyp-brand-title)::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  margin: 12px auto 0;
+  background: linear-gradient(90deg, transparent 0%, var(--wyp-blue-accent) 50%, transparent 100%);
+  box-shadow: 0 0 8px var(--wyp-blue-glow);
+}
+body.wyp h2 {
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--wyp-text) !important;
+  margin: 0;
+}
+body.wyp p, body.wyp .ztdl-p {
+  color: var(--wyp-text-muted) !important;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
 }
 
-.company-logo-frame {
-  border: 1px solid color-mix(in srgb, var(--theme-light-primary-500) 20%, transparent);
+/* Links blue, underlined on hover only */
+body.wyp a {
+  color: var(--wyp-blue-accent) !important;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 180ms var(--wyp-ease-out);
 }
+body.wyp a:hover { color: var(--wyp-blue-500) !important; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Heroicons / svg icons — pick up blue when used as accents */
+body.wyp svg.text-primary-light-500,
+body.wyp svg.text-primary-dark-500 { color: var(--wyp-blue-accent) !important; }
+
+/* Spinner ring → blue */
+body.wyp [class*="border-t-transparent"][class*="animate-spin"] {
+  border-color: var(--wyp-blue-accent) !important;
+  border-top-color: transparent !important;
+}
+
+/* Alerts — better contrast + blue/red accents */
+body.wyp [class*="bg-warn"],
+body.wyp [role="alert"] {
+  background: color-mix(in srgb, var(--wyp-error) 8%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--wyp-error) 35%, transparent) !important;
+  color: var(--wyp-error) !important;
+  border-radius: var(--wyp-r-md) !important;
+  padding: 10px 14px !important;
+}
+
+/* SignIn-with-IDP buttons — ghost style with blue tint */
+body.wyp [data-testid*="idp"], body.wyp button[class*="idp"] {
+  background: transparent !important;
+  border: 1px solid var(--wyp-hairline-blue) !important;
+  color: var(--wyp-text) !important;
+  border-radius: var(--wyp-r-md) !important;
+  transition: background-color 180ms var(--wyp-ease-out), border-color 180ms var(--wyp-ease-out);
+}
+body.wyp [data-testid*="idp"]:hover,
+body.wyp button[class*="idp"]:hover {
+  background: var(--wyp-surface-blue) !important;
+  border-color: var(--wyp-hairline-blue-hi) !important;
+}
+
+/* "Sign in with" divider text */
+body.wyp [class*="text-text-light-secondary"],
+body.wyp [class*="text-text-dark-secondary"] {
+  color: var(--wyp-text-muted) !important;
+}
+
+/* Section dividers (hr or border-y) — blue tinted hairline */
+body.wyp hr,
+body.wyp [class*="border-y"],
+body.wyp [class*="border-t"]:not([class*="border-t-transparent"]):not([class*="border-t-blue"]) {
+  border-color: var(--wyp-hairline-blue) !important;
+}
+
+/* Avatar circles + chips — blue tinted ring */
+body.wyp [class*="rounded-full"][class*="bg-primary"] {
+  background: var(--wyp-surface-blue) !important;
+  color: var(--wyp-blue-accent) !important;
+  box-shadow: 0 0 0 1px var(--wyp-hairline-blue) inset;
+}
+
+/* Make focused field labels read in blue */
+body.wyp form label:focus-within > span:first-child {
+  color: var(--wyp-blue-accent) !important;
+}
+
+/* Checkbox accent */
+body.wyp input[type="checkbox"] {
+  accent-color: var(--wyp-blue-accent);
+}
+
+/* Subtle blue light beam at the bottom of the page in light mode */
+body.wyp .wyp-spotlight-secondary {
+  background: radial-gradient(circle at center, var(--wyp-blue-glow-soft) 0%, transparent 65%) !important;
+}
+
+/* Page-level animations: stagger reusable for any DynamicTheme content */
+body.wyp .wyp-brand + .w-full,
+body.wyp form,
+body.wyp [class*="space-y-"] {
+  /* no-op, just to keep cascade clean */
+}
+
+/* ============================================================
+   iOS-style focus ring on all interactive elements
+   ============================================================ */
+body.wyp :is(button, a, input, select, [role="button"], [role="option"]):focus-visible {
+  outline: none !important;
+  box-shadow:
+    0 0 0 2px var(--wyp-bg) ,
+    0 0 0 4px color-mix(in srgb, var(--wyp-blue-accent) 65%, transparent) !important;
+  border-radius: var(--wyp-r-md);
+}
+body.wyp form input:focus-visible {
+  box-shadow:
+    0 8px 24px -8px var(--wyp-blue-glow),
+    0 1px 0 0 var(--wyp-blue-500) !important;
+}
+
+/* ============================================================
+   Reusable blue brush separator — use anywhere
+   ============================================================ */
+.wyp-brush {
+  width: 56px;
+  height: 1px;
+  margin: 14px auto;
+  background: linear-gradient(90deg, transparent 0%, var(--wyp-blue-accent) 50%, transparent 100%);
+  box-shadow: 0 0 12px var(--wyp-blue-glow);
+}
+.wyp-brush-wide {
+  width: 100%;
+  max-width: 280px;
+  height: 1px;
+  margin: 18px auto;
+  background: linear-gradient(90deg, transparent 0%, var(--wyp-hairline-blue) 30%, var(--wyp-blue-accent) 50%, var(--wyp-hairline-blue) 70%, transparent 100%);
+}
+
+/* Brand block: stronger brush effect, slightly animated */
+body.wyp .wyp-accent-line {
+  width: 64px;
+  height: 1.5px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--wyp-blue-300) 25%,
+    var(--wyp-blue-accent) 50%,
+    var(--wyp-blue-300) 75%,
+    transparent 100%) !important;
+  box-shadow: 0 0 18px var(--wyp-blue-glow), 0 0 4px var(--wyp-blue-glow-soft);
+  position: relative;
+}
+
+/* Section separators between brand and form (purely decorative brush) */
+body.wyp form::before {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  height: 1px;
+  margin: 0 auto 14px;
+  background: linear-gradient(90deg, transparent 0%, var(--wyp-hairline-blue) 50%, transparent 100%);
+}
+
+/* ============================================================
+   Hover micro-interactions across interactive surfaces
+   ============================================================ */
+body.wyp [class*="bg-background-light-400"]:hover::before,
+body.wyp [class*="bg-background-light-500"]:hover::before,
+body.wyp [class*="bg-background-dark-400"]:hover::before,
+body.wyp [class*="bg-background-dark-500"]:hover::before {
+  box-shadow: 0 0 16px var(--wyp-blue-glow);
+}
+
+/* Smooth scroll feel */
+html { scroll-behavior: smooth; }
+
+/* Selection */
+body.wyp ::selection { background: color-mix(in srgb, var(--wyp-blue-accent) 28%, transparent); color: var(--wyp-text); }
+
+/* Legacy company-logo fallback styles, no longer used decoratively */
+.company-logo-img { max-height: 72px; width: auto; }
+.company-logo-frame { border: 1px solid color-mix(in srgb, var(--theme-light-primary-500) 20%, transparent); }

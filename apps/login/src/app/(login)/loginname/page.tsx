@@ -44,25 +44,18 @@ export default async function Page(props: { searchParams: Promise<Record<string 
   });
 
   const branding = await getBrandingSettings({ serviceConfig, organization: organization ?? defaultOrganization });
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-  const logoSrc = `${basePath}/logo/company-logo.svg`;
 
   return (
     <DynamicTheme branding={branding}>
-      <div className="flex w-full justify-center pb-2 pt-1">
-        <div className="company-logo-frame inline-flex items-center justify-center rounded-3xl bg-[#253354] px-10 py-10 shadow-xl shadow-[#233356]/40 ring-1 ring-[#b19e70]/20">
-          <img src={logoSrc} alt="Genius logo" className="h-56 w-56 object-contain md:h-72 md:w-72" />
-        </div>
-      </div>
-
-      <div className="flex flex-col items-center space-y-4 text-center">
-        <h1 className="text-balance text-[#b19e70]">Genius Login</h1>
-        <p className="ztdl-p max-w-md text-balance text-white/80">
+      <div className="wyp-brand">
+        <h1 className="wyp-brand-title">WinYourPos</h1>
+        <div className="wyp-accent-line" aria-hidden />
+        <p className="wyp-tagline">
           <Translated i18nKey="description" namespace="loginname" />
         </p>
       </div>
 
-      <div className="w-full">
+      <div className="w-full mt-6">
         {loginSettings?.allowLocalAuthentication && (
           <UsernameForm
             loginName={loginName}
